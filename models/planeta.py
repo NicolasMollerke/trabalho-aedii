@@ -1,5 +1,6 @@
 class Planeta:
-    def __init__(self, nome: str, periodo_rotacao: int, periodo_orbita: int, diametro: int, clima: str, gravidade: str, terreno: str, agua: int, populacao: int):
+    def __init__(self, id: int, nome: str, periodo_rotacao: int, periodo_orbita: int, diametro: int, clima: str, gravidade: str, terreno: str, agua: int, populacao: int):
+        self.id = id
         self.nome = nome
         self.periodo_rotacao = periodo_rotacao
         self.periodo_orbita = periodo_orbita
@@ -12,6 +13,9 @@ class Planeta:
 
     @classmethod
     def criar(cls, dados: dict):
+        url = dados.get("url")
+
+        id = (url.strip("/").split("/")[-1])
         nome = dados.get("name")
         periodo_rotacao = dados.get("rotation_period")
         periodo_orbita = dados.get("orbital_period")
@@ -23,16 +27,17 @@ class Planeta:
         populacao = dados.get("population")
 
         return cls(
-            nome = nome,
-            periodo_rotacao = periodo_rotacao,
-            periodo_orbita = periodo_orbita,
-            diametro = diametro,
-            clima = clima,
-            gravidade = gravidade,
-            terreno = terreno,
-            agua = agua,
-            populacao = populacao
+            id,
+            nome,
+            periodo_rotacao,
+            periodo_orbita,
+            diametro,
+            clima,
+            gravidade,
+            terreno,
+            agua,
+            populacao
         )
 
     def __repr__(self):
-        return f"Planeta('{self.nome}')"
+        return f"Planeta('{self.nome}{self.id}')"
