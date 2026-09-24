@@ -79,3 +79,23 @@ class Nave:
 
     def __repr__(self):
         return f"Nave('{self.nome}')"
+
+    def exibir_detalhes(self):
+        print(f"\n🚀 NAVE: {self.nome.upper()}")
+        print(f"  • Modelo: {self.modelo}")
+        print(f"  • Classe: {self.classe_nave.capitalize()}")
+        print(f"  • Fabricante: {self.fabricante}")
+        print(f"  • Velocidade Máx. Atmosférica: {self.velocidade_maxima_atmosferica}")
+        print(f"  • Classe de Hyperdrive: {self.classe_hiperdrive}")
+        print(f"  • MGLT (Megalights): {self.mglt}")
+        print(f"  • Tripulação / Passageiros: {self.tripulacao} / {self.passageiros}")
+        print(f"  • Capacidade de Carga: {self.capacidade_carga}")
+        print(f"  • Custo (Créditos): {self.custo_em_creditos}")
+        print(f"  • Comprimento: {self.comprimento}m")
+        print(f"  • Consumíveis: {self.consumiveis}")
+        
+        if hasattr(self, 'pilotos') and self.pilotos:
+            print(f"  • Pilotos conhecidos: {self.pilotos}")
+        else:
+            print("  • Pilotos conhecidos: Nenhum registado.")
+        print("-" * 40)

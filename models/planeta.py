@@ -1,5 +1,17 @@
 class Planeta:
-    def __init__(self, id: int, nome: str, periodo_rotacao: int, periodo_orbita: int, diametro: int, clima: str, gravidade: str, terreno: str, agua: int, populacao: int):
+    def __init__(
+        self,
+        id: int, 
+        nome: str, 
+        periodo_rotacao: int, 
+        periodo_orbita: int, 
+        diametro: int, clima: str, 
+        gravidade: str, 
+        terreno: str, 
+        agua: int, 
+        populacao: int,
+        residentes_ids: list
+    ):
         self.id = id
         self.nome = nome
         self.periodo_rotacao = periodo_rotacao
@@ -10,12 +22,15 @@ class Planeta:
         self.terreno = terreno
         self.agua = agua
         self.populacao = populacao
+        self.residentes_ids = residentes_ids
+
+        self.residentes = []
 
     @classmethod
     def criar(cls, dados: dict):
         url = dados.get("url")
 
-        id = (url.strip("/").split("/")[-1])
+        id = int(url.strip("/").split("/")[-1])
         nome = dados.get("name")
         periodo_rotacao = dados.get("rotation_period")
         periodo_orbita = dados.get("orbital_period")
@@ -25,6 +40,9 @@ class Planeta:
         terreno = dados.get("terrain")
         agua = dados.get("surface_water")
         populacao = dados.get("population")
+
+        urls_residentes = dados.get("residents")
+        residentes_ids = [int(u.strip("/").split("/")[-1]) for u in urls_residentes if u]
 
         return cls(
             id,
@@ -36,8 +54,27 @@ class Planeta:
             gravidade,
             terreno,
             agua,
-            populacao
+            populacao,
+            residentes_ids
         )
 
     def __repr__(self):
-        return f"Planeta('{self.nome}{self.id}')"
+        return f"Planeta('{self.nome}')"
+
+    def exibir_detalhes(self):
+        print(f"\nPLANETA: {self.nome.upper()}")
+        print(f"  • Clima: {self.clima}")
+        print(f"  • Terreno: {self.terreno}")
+        print(f"  • População: {self.populacao}")
+        print(f"  • Gravidade: {self.gravidade}")
+        print(f"  • Diâmetro: {self.diametro}")
+        print(f"  • Período de Rotação: {self.periodo_rotacao} horas")
+        print(f"  • Período de Órbita: {self.periodo_orbita} dias")
+        print(f"  • Água na Superfície: {self.agua}%")
+        
+        if hasattr(self, 'residentes') and self.residentes:
+            print(f"  • Residentes conhecidos: {self.residentes}")
+        else:
+            print("  • Residentes conhecidos: Nenhum registado.")
+        print("-" * 40)
+

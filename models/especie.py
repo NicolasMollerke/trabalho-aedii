@@ -22,7 +22,7 @@ class Especie:
         self.cores_pele = cores_pele
         self.cores_cabelo = cores_cabelo
         self.cores_olhos = cores_olhos
-        self.expectativa_vidaa = expectativa_vida
+        self.expectativa_vida = expectativa_vida
         self.planeta_origem_id = planeta_origem_id
         self.idioma = idioma
 
@@ -70,3 +70,24 @@ class Especie:
 
     def __repr__(self):
         return f"Especie('{self.nome}')"
+
+    def exibir_detalhes(self):
+        print(f"\n🧬 ESPÉCIE: {self.nome.upper()}")
+        print(f"  • Classificação / Designação: {self.classificacao.capitalize()} / {self.designacao.capitalize()}")
+        print(f"  • Altura Média: {self.altura_media} cm")
+        print(f"  • Expectativa de Vida: {self.expectativa_vidaa} anos")
+        print(f"  • Cores de Pele: {self.cores_pele}")
+        print(f"  • Cores de Cabelo: {self.cores_cabelo}")
+        print(f"  • Cores dos Olhos: {self.cores_olhos}")
+        print(f"  • Idioma nativo: {self.idioma}")
+        
+        if hasattr(self, 'planeta_origem') and self.planeta_origem:
+            print(f"  • Planeta de Origem: {self.planeta_origem}")
+        else:
+            print("  • Planeta de Origem: Desconhecido")
+            
+        if hasattr(self, 'personagens') and self.personagens:
+            print(f"  • Personagens conhecidos: {self.personagens}")
+        else:
+            print("  • Personagens conhecidos: Nenhum registado.")
+        print("-" * 40)

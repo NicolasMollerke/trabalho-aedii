@@ -73,4 +73,30 @@ class Personagem:
         )
 
     def __repr__(self):
-        return f"Personagem('{self.nome} | {self.especies}')"
+        return f"Personagem('{self.nome}')"
+
+    def exibir_detalhes(self):
+        print(f"\n👤 PERSONAGEM: {self.nome.upper()}")
+        print(f"  • Ano de Nascimento: {self.nascimento}")
+        print(f"  • Altura / Peso: {self.altura} cm / {self.peso} kg")
+        print(f"  • Cor do Cabelo: {self.cor_cabelo}")
+        print(f"  • Cor dos Olhos: {self.cor_olho}")
+        print(f"  • Cor da Pele: {self.cor_pele}")
+        
+        if hasattr(self, 'planeta_origem') and self.planeta_origem:
+            print(f"  • Planeta de Origem: {self.planeta_origem}")
+        else:
+            print("  • Planeta de Origem: Desconhecido")
+        
+        if hasattr(self, 'especies') and self.especies:
+            print(f"  • Espécie(s): {self.especies}")
+        else:
+            print("  • Espécie(s): Desconhecida / Humano")
+
+        if hasattr(self, 'veiculos') and self.veiculos:
+            print(f"  • Veículo(s): {self.veiculos}")
+        
+        if hasattr(self, 'naves') and self.naves:
+            print(f"  • Nave(s): {self.naves}")
+            
+        print("-" * 40)
