@@ -81,7 +81,7 @@ class Nave:
         return f"Nave('{self.nome}')"
 
     def exibir_detalhes(self):
-        print(f"\n🚀 NAVE: {self.nome.upper()}")
+        print(f"\n NAVE: {self.nome.upper()}")
         print(f"  • Modelo: {self.modelo}")
         print(f"  • Classe: {self.classe_nave.capitalize()}")
         print(f"  • Fabricante: {self.fabricante}")
