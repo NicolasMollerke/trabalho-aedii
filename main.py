@@ -8,10 +8,6 @@ from estruturas.trie import Trie
 
 
 def fetch_data(endpoint: str) -> list:
-    """
-    Realiza requisições sucessivas à SWAPI acompanhando o link 'next' 
-    até consumir todas as páginas do recurso solicitado.
-    """
     url_atual = f"https://swapi.dev/api/{endpoint}/"
     resultados = []
 
@@ -40,6 +36,15 @@ def cria_objetos(dados: list, classe: type) -> list:
 
     return lista_objetos
 
+def carregar_entidades_da_api():
+    lista_planetas = cria_objetos(fetch_data("planets"), Planeta)
+    lista_personagens = cria_objetos(fetch_data("people"), Personagem)
+    lista_especies = cria_objetos(fetch_data("species"), Especie)
+    lista_naves = cria_objetos(fetch_data("starships"), Nave)
+    lista_veiculos = cria_objetos(fetch_data("vehicles"), Veiculo)
+    
+    return lista_planetas, lista_personagens, lista_especies, lista_naves, lista_veiculos
+
 def cruzar_dados(lista_origem: list, lista_destino: list, ids: str, destino: str):
     mapa_destino = {item.id: item for item in lista_destino}
 
@@ -57,46 +62,45 @@ def cruzar_dados(lista_origem: list, lista_destino: list, ids: str, destino: str
             objetos_cruzados = [mapa_destino[i] for i in valor_id if i in mapa_destino]
             setattr(item, destino, objetos_cruzados)
 
+def estabelecer_relacionamentos(planetas, personagens, especies, naves, veiculos):
+    cruzar_dados(personagens, especies, "especies_ids", "especies")
+    cruzar_dados(personagens, planetas, "planeta_origem_id", "planeta_origem")
+    cruzar_dados(personagens, naves, "naves_ids", "naves")
+    cruzar_dados(personagens, veiculos, "veiculos_ids", "veiculos")
+
+    cruzar_dados(especies, personagens, "personagens_ids", "personagens")
+    cruzar_dados(planetas, personagens, "residentes_ids", "residentes")
+    cruzar_dados(naves, personagens, "pilotos_ids", "pilotos")
+    cruzar_dados(veiculos, personagens, "pilotos_ids", "pilotos")
+
+def inicializar_tries(planetas, personagens, especies, naves, veiculos):
+    tries = {
+        "planetas": Trie(),
+        "personagens": Trie(),
+        "especies": Trie(),
+        "naves": Trie(),
+        "veiculos": Trie()
+    }
+    
+    inserir_trie(planetas, tries["planetas"])
+    inserir_trie(personagens, tries["personagens"])
+    inserir_trie(especies, tries["especies"])
+    inserir_trie(naves, tries["naves"])
+    inserir_trie(veiculos, tries["veiculos"])
+    
+    return tries
+
 def inserir_trie(lista: list, trie: Trie):
     for i in lista:
         trie.inserir(i.nome, i)
 
 
 def main():
-    planetas = fetch_data("planets")
-    lista_planetas = cria_objetos(planetas, Planeta)
-
-    personagens = fetch_data("people")
-    lista_personagens = cria_objetos(personagens, Personagem)
-
-    especies = fetch_data("species")
-    lista_especies = cria_objetos(especies, Especie)
-
-    naves = fetch_data("starships")
-    lista_naves = cria_objetos(naves, Nave)
-
-    veiculos = fetch_data("vehicles")
-    lista_veiculos = cria_objetos(veiculos, Veiculo)
-
-    cruzar_dados(lista_personagens, lista_especies, "especies_ids", "especies")
-    cruzar_dados(lista_personagens, lista_planetas, "planeta_origem_id", "planeta_origem")
-    cruzar_dados(lista_personagens, lista_naves, "naves_ids", "naves")
-    cruzar_dados(lista_personagens, lista_veiculos, "veiculos_ids", "veiculos")
-
-    cruzar_dados(lista_especies, lista_personagens, "personagens.ids", "personagens")
-
-    cruzar_dados(lista_planetas, lista_personagens, "residentes.ids", "residentes")
-
-    cruzar_dados(lista_naves, lista_personagens, "pilotos.ids", "pilotos")
-
-    cruzar_dados(lista_veiculos, lista_personagens, "pilotos.ids", "pilotos")
-
-    trie_planetas = Trie()
-    inserir_trie(lista_planetas, trie_planetas)
-
-    tatooine = trie_planetas.buscar("tatooine")
-    print(tatooine)
-
+    planetas, personagens, especies, naves, veiculos = carregar_entidades_da_api()
+    
+    estabelecer_relacionamentos(planetas, personagens, especies, naves, veiculos)
+    
+    tries = inicializar_tries(planetas, personagens, especies, naves, veiculos)
     
 
 
