@@ -72,7 +72,7 @@ class Especie:
         return f"Especie('{self.nome}')"
 
     def exibir_detalhes(self):
-        print(f"\n🧬 ESPÉCIE: {self.nome.upper()}")
+        print(f"\nESPÉCIE: {self.nome.upper()}")
         print(f"  • Classificação / Designação: {self.classificacao.capitalize()} / {self.designacao.capitalize()}")
         print(f"  • Altura Média: {self.altura_media} cm")
         print(f"  • Expectativa de Vida: {self.expectativa_vidaa} anos")

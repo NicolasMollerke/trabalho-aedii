@@ -76,7 +76,7 @@ class Personagem:
         return f"Personagem('{self.nome}')"
 
     def exibir_detalhes(self):
-        print(f"\n👤 PERSONAGEM: {self.nome.upper()}")
+        print(f"\nPERSONAGEM: {self.nome.upper()}")
         print(f"  • Ano de Nascimento: {self.nascimento}")
         print(f"  • Altura / Peso: {self.altura} cm / {self.peso} kg")
         print(f"  • Cor do Cabelo: {self.cor_cabelo}")
