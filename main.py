@@ -5,6 +5,7 @@ from models.especie import Especie
 from models.nave import Nave
 from models.veiculo import Veiculo
 from estruturas.trie import Trie
+from menus.principal import exibir_menu_principal
 
 
 def fetch_data(endpoint: str) -> list:
@@ -101,7 +102,16 @@ def main():
     estabelecer_relacionamentos(planetas, personagens, especies, naves, veiculos)
     
     tries = inicializar_tries(planetas, personagens, especies, naves, veiculos)
-    
+
+    conjuntos = {
+        "planetas": {"trie": tries["planetas"], "lista": planetas},
+        "personagens": {"trie": tries["personagens"], "lista": personagens},
+        "especies": {"trie": tries["especies"], "lista": especies},
+        "naves": {"trie": tries["naves"], "lista": naves},
+        "veiculos": {"trie": tries["veiculos"], "lista": veiculos}
+    }
+
+    exibir_menu_principal(conjuntos)   
 
 
 if __name__ == "__main__":
