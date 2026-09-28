@@ -40,5 +40,37 @@ class Trie:
             no_atual = no_atual.filhos[indice]
             
         if no_atual is not None and no_atual.fim_de_palavra:
-            return no_atual.dados
+            return no_atual.dados, self.nos_visitados
         return None
+
+    def buscaPrefixo(self, prefixo: str) -> list:
+        resultados = []
+        no = self.raiz
+        self.nos_visitados = 0
+
+        prefixo = prefixo.lower()
+
+        for char in prefixo:
+            self.nos_visitados += 1
+            indice = self._obter_indice(char)
+
+            if no.filhos[indice] is None:
+                return resultados, self.nos_visitados
+
+            no = no.filhos[indice]
+
+        self.buscaRecursiva(prefixo, no, resultados)
+
+        return resultados, self.nos_visitados
+
+
+    def buscaRecursiva(self, prefixo, no, resultados):
+        if no.fim_de_palavra:
+            resultados.append(no.dados)
+
+        for indice, proxNo in enumerate(no.filhos):
+            if proxNo is not None:
+                self.nos_visitados += 1
+                letra = chr(indice)
+                self.buscaRecursiva(prefixo + letra, proxNo, resultados)
+
