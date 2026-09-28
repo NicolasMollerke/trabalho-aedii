@@ -53,11 +53,11 @@ def exibir_menu_classes(conjuntos, tipo):
         elif opcao == "2":
             menu_personagens(conjuntos["personagens"]["trie"], conjuntos["personagens"]["lista"], tipo)
         elif opcao == "3":
-            menu_personagens(conjuntos["especies"]["trie"], conjuntos["especies"]["lista"], tipo)
+            menu_especies(conjuntos["especies"]["trie"], conjuntos["especies"]["lista"], tipo)
         elif opcao == "4":
-            menu_personagens(conjuntos["veiculos"]["trie"], conjuntos["veiculos"]["lista"], tipo)
+            menu_veiculos(conjuntos["veiculos"]["trie"], conjuntos["veiculos"]["lista"], tipo)
         elif opcao == "5":
-            menu_personagens(conjuntos["naves"]["trie"], conjuntos["naves"]["lista"], tipo)
+            menu_naves(conjuntos["naves"]["trie"], conjuntos["naves"]["lista"], tipo)
         elif opcao == "0":
             break 
             
