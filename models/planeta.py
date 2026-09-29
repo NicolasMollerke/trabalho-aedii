@@ -59,7 +59,7 @@ class Planeta:
         )
 
     def __repr__(self):
-        return f"Planeta('{self.nome}')"
+        return f"{self.nome}"
 
     def exibir_detalhes(self):
         print(f"\nPLANETA: {self.nome.upper()}")

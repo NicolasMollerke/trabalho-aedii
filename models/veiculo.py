@@ -69,7 +69,7 @@ class Veiculo:
         )
 
     def __repr__(self):
-        return f"Veiculo('{self.nome}')"
+        return f"{self.nome})"
 
     def exibir_detalhes(self):
             print(f"\nVEÍCULO: {self.nome.upper()}")

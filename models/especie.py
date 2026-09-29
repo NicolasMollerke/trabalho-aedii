@@ -69,13 +69,13 @@ class Especie:
         )
 
     def __repr__(self):
-        return f"Especie('{self.nome}')"
+        return f"{self.nome}"
 
     def exibir_detalhes(self):
         print(f"\nESPÉCIE: {self.nome.upper()}")
         print(f"  • Classificação / Designação: {self.classificacao.capitalize()} / {self.designacao.capitalize()}")
         print(f"  • Altura Média: {self.altura_media} cm")
-        print(f"  • Expectativa de Vida: {self.expectativa_vidaa} anos")
+        print(f"  • Expectativa de Vida: {self.expectativa_vida} anos")
         print(f"  • Cores de Pele: {self.cores_pele}")
         print(f"  • Cores de Cabelo: {self.cores_cabelo}")
         print(f"  • Cores dos Olhos: {self.cores_olhos}")

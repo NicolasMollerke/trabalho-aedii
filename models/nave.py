@@ -78,7 +78,7 @@ class Nave:
         )
 
     def __repr__(self):
-        return f"Nave('{self.nome}')"
+        return f"{self.nome}"
 
     def exibir_detalhes(self):
         print(f"\n NAVE: {self.nome.upper()}")
