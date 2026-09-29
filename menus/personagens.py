@@ -1,35 +1,30 @@
+from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo, exibir_resultados
+
 def menu_personagens(trie, lista, tipo):
     while True:
         print("\n---PESQUISA DE PERSONAGENS---")
-        
-        if tipo == "nome":
-            nome = input("Digite o nome (ou '0' para voltar): ").strip()
-            
-            if nome == "0": 
-                break
-                
-            resultado, nos = trie.buscar(nome)
-                        
-            if resultado: 
-                resultado.exibir_detalhes()
-                print(f"Nós Percorridos: {nos}")
-            else: 
-                print(f"\n[x] Não encontrado.")
 
+        nos = 0
+
+        mapa_atributos = {
+            "1": ("Planeta de Origem", "planeta_origem"),
+            "2": ("Gênero", "genero"),
+            "3": ("Ano de Nascimento", "nascimento"),
+            "4": ("Espécie", "especies")
+        }
+
+        if tipo == "nome":
+            resultado, nos = pesquisa_nome(trie)
+            if resultado is not None:
+                exibir_resultados(resultado, nos)
+            break
         elif tipo == "atributo":
-            print("\n[!] Pesquisa por atributos em desenvolvimento...")
+            resultado = pesquisa_atributo(lista, mapa_atributos)
+            if resultado is not None:
+                exibir_resultados(resultado, nos)
             break
         elif tipo == "prefixo":
-            prefixo = input("Digite o prefixo (ou '0' para voltar): ").strip()
-
-            if prefixo == "0": 
-                break
-
-            resultado, nos = trie.buscaPrefixo(prefixo)
-
-            if resultado:
-                for r in resultado:
-                    r.exibir_detalhes()
-                print(f"Nós Percorridos: {nos}")
-            else: 
-                print(f"\n[x] Não encontrado.")
+            resultado, nos = pesquisa_prefixo(trie)
+            if resultado is not None:
+                exibir_resultados(resultado, nos)
+            break
