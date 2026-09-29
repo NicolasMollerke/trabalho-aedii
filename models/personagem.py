@@ -3,6 +3,7 @@ class Personagem:
         self,
         id_personagem: int,
         nome: str,
+        genero: str,
         altura: str,
         peso: str,
         cor_cabelo: str,
@@ -16,6 +17,7 @@ class Personagem:
     ):
         self.id = id_personagem
         self.nome = nome
+        self.genero = genero
         self.altura = altura
         self.peso = peso
         self.cor_cabelo = cor_cabelo
@@ -38,6 +40,7 @@ class Personagem:
 
         id = int(url.strip("/").split("/")[-1])
         nome = dados.get("name")
+        genero = dados.get("gender")
         altura = dados.get("height")
         peso = dados.get("mass")
         cor_cabelo = dados.get("hair_color")
@@ -60,6 +63,7 @@ class Personagem:
         return cls(
             id,
             nome,
+            genero,
             altura,
             peso,
             cor_cabelo,
@@ -73,10 +77,11 @@ class Personagem:
         )
 
     def __repr__(self):
-        return f"Personagem('{self.nome}')"
+        return f"{self.nome}"
 
     def exibir_detalhes(self):
         print(f"\nPERSONAGEM: {self.nome.upper()}")
+        print(f"  • Gênero: {self.genero}")
         print(f"  • Ano de Nascimento: {self.nascimento}")
         print(f"  • Altura / Peso: {self.altura} cm / {self.peso} kg")
         print(f"  • Cor do Cabelo: {self.cor_cabelo}")
@@ -91,7 +96,7 @@ class Personagem:
         if hasattr(self, 'especies') and self.especies:
             print(f"  • Espécie(s): {self.especies}")
         else:
-            print("  • Espécie(s): Desconhecida / Humano")
+            print("  • Espécie(s): Desconhecida")
 
         if hasattr(self, 'veiculos') and self.veiculos:
             print(f"  • Veículo(s): {self.veiculos}")
