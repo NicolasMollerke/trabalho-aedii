@@ -43,7 +43,7 @@ class Trie:
             return no_atual.dados, self.nos_visitados
         return None
 
-    def buscaPrefixo(self, prefixo: str) -> list:
+    def busca_prefixo(self, prefixo: str) -> list:
         resultados = []
         no = self.raiz
         self.nos_visitados = 0
@@ -59,12 +59,12 @@ class Trie:
 
             no = no.filhos[indice]
 
-        self.buscaRecursiva(prefixo, no, resultados)
+        self.busca_recursiva(prefixo, no, resultados)
 
         return resultados, self.nos_visitados
 
 
-    def buscaRecursiva(self, prefixo, no, resultados):
+    def busca_recursiva(self, prefixo, no, resultados):
         if no.fim_de_palavra:
             resultados.append(no.dados)
 
@@ -72,5 +72,5 @@ class Trie:
             if proxNo is not None:
                 self.nos_visitados += 1
                 letra = chr(indice)
-                self.buscaRecursiva(prefixo + letra, proxNo, resultados)
+                self.busca_recursiva(prefixo + letra, proxNo, resultados)
 

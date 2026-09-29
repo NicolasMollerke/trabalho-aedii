@@ -37,7 +37,7 @@ def cria_objetos(dados: list, classe: type) -> list:
 
     return lista_objetos
 
-def carregar_entidades_da_api():
+def carregar_entidades_api():
     lista_planetas = cria_objetos(fetch_data("planets"), Planeta)
     lista_personagens = cria_objetos(fetch_data("people"), Personagem)
     lista_especies = cria_objetos(fetch_data("species"), Especie)
@@ -97,7 +97,7 @@ def inserir_trie(lista: list, trie: Trie):
 
 
 def main():
-    planetas, personagens, especies, naves, veiculos = carregar_entidades_da_api()
+    planetas, personagens, especies, naves, veiculos = carregar_entidades_api()
     
     estabelecer_relacionamentos(planetas, personagens, especies, naves, veiculos)
     
