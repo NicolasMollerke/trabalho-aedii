@@ -1,26 +1,35 @@
 from menus.planetas import menu_planetas
+from menus.personagens import menu_personagens
+from menus.especies import menu_especies
+from menus.veiculos import menu_veiculos
+from menus.naves import menu_naves
 
-def exibir_menu_classes(trie, tipo):
+def exibir_menu_classes(conjuntos, tipo):
     while True:
-        print("\n" + "="*30)
-        print("BANCO DE DADOS STAR WARS")
-        print("="*30)
-        print("[1] Personages")
-        print("[2] Planetas")
+        print("\n" + "-"*40)
+        print(f"SELECIONE A CLASSE".center(40))
+        print("-" * 40)
+        print("[1] Planetas")
+        print("[2] Personagens")
         print("[3] Espécies")
-        print("[4] Naves")
-        print("[5] Veículos")
-        print("[0] Sair do Sistema")
+        print("[4] Veículos")
+        print("[5] Naves")
+        print("[0] Voltar ao Menu Anterior")
         
-        opcao = input("\nQual classe voce deseja operar: ").strip()
+        opcao = input("\nQual classe deseja consultar: ").strip()
         
         if opcao == "1":
-            if tipo == "nome":
-                menu_planetas(trie, tipo)
+            menu_planetas(conjuntos["planetas"]["trie"], conjuntos["planetas"]["lista"], tipo)
         elif opcao == "2":
-            print("\n[!] Menu de personagens em construção...")
+            menu_personagens(conjuntos["personagens"]["trie"], conjuntos["personagens"]["lista"], tipo)
+        elif opcao == "3":
+            menu_especies(conjuntos["especies"]["trie"], conjuntos["especies"]["lista"], tipo)
+        elif opcao == "4":
+            menu_veiculos(conjuntos["veiculos"]["trie"], conjuntos["veiculos"]["lista"], tipo)
+        elif opcao == "5":
+            menu_naves(conjuntos["naves"]["trie"], conjuntos["naves"]["lista"], tipo)
         elif opcao == "0":
-            print("\nEncerrando o sistema. Que a Força esteja com você!")
-            break
+            break 
+            
         else:
             print("\n[x] Opção inválida! Tente novamente.")
