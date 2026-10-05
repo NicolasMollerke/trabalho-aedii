@@ -1,28 +1,29 @@
 from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo, exibir_resultados
+from servicos.filtros import filtrar_planetas
 
 def menu_planetas(trie, lista, tipo):
-    while True:
-        print("\n---PESQUISA DE PLANETAS---")
+    print("\n---PESQUISA DE PLANETAS---")
 
-        nos = 0
+    nos = 0
         
-        mapa_atributos = {
-            "1": ("Clima", "clima"),
-            "2": ("Terreno", "terreno")
-        }
+    mapa_atributos = {
+        "1": ("Clima", "clima"),
+        "2": ("Terreno", "terreno")
+    }
 
-        if tipo == "nome":
-            resultado, nos = pesquisa_nome(trie)
-            if resultado is not None:
-                exibir_resultados(resultado, nos)
-            break
-        elif tipo == "atributo":
-            resultado = pesquisa_atributo(lista, mapa_atributos)
-            if resultado is not None:
-                exibir_resultados(resultado, nos)
-            break
-        elif tipo == "prefixo":
-            resultado, nos = pesquisa_prefixo(trie)
-            if resultado is not None:
-                exibir_resultados(resultado, nos)
-            break
+    if tipo == "nome":
+        resultado, nos = pesquisa_nome(trie)
+        if resultado is not None:
+            exibir_resultados(resultado, nos)
+    elif tipo == "atributo":
+        resultado = pesquisa_atributo(lista, mapa_atributos)
+        if resultado is not None:
+            exibir_resultados(resultado, nos)
+    elif tipo == "prefixo":
+        resultado, nos = pesquisa_prefixo(trie)
+        if resultado is not None:
+            exibir_resultados(resultado, nos)
+    elif tipo == "filtro":
+        resultado = filtrar_planetas(lista)
+        if resultado is not None:
+            exibir_resultados(resultado)
