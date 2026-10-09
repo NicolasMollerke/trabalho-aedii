@@ -1,5 +1,6 @@
-from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo, exibir_resultados
+from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo
 from servicos.filtros import filtrar_planetas
+from servicos.resultados import exibir_resultados
 
 def menu_planetas(trie, lista, tipo):
     print("\n---PESQUISA DE PLANETAS---")

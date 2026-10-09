@@ -1,4 +1,7 @@
-from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo, exibir_resultados
+from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo
+from servicos.filtros import filtrar_personagens
+from servicos.resultados import exibir_resultados
+
 
 def menu_personagens(trie, lista, tipo):
     print("\n---PESQUISA DE PERSONAGENS---")
@@ -24,3 +27,7 @@ def menu_personagens(trie, lista, tipo):
         resultado, nos = pesquisa_prefixo(trie)
         if resultado is not None:
             exibir_resultados(resultado, nos)
+    elif tipo == "filtro":
+        resultado = filtrar_personagens(lista)
+        if resultado is not None:
+            exibir_resultados(resultado)

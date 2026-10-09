@@ -1,4 +1,5 @@
-from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo, exibir_resultados
+from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo
+from servicos.resultados import exibir_resultados
 
 def menu_especies(trie, lista, tipo):
     print("\n---PESQUISA DE ESPÉCIES---")
