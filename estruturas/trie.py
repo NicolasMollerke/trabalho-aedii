@@ -43,7 +43,7 @@ class Trie:
             return no_atual.dados, self.nos_visitados
         return None
 
-    def busca_prefixo(self, prefixo: str) -> list:
+    def busca_prefixo(self, prefixo):
         resultados = []
         no = self.raiz
         self.nos_visitados = 0

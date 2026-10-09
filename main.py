@@ -8,7 +8,7 @@ from estruturas.trie import Trie
 from menus.principal import exibir_menu_principal
 
 
-def fetch_data(endpoint: str) -> list:
+def fetch_data(endpoint) -> list:
     url_atual = f"https://swapi.dev/api/{endpoint}/"
     resultados = []
 
@@ -28,7 +28,7 @@ def fetch_data(endpoint: str) -> list:
 
     return resultados
 
-def cria_objetos(dados: list, classe: type) -> list:
+def cria_objetos(dados, classe) -> list:
     lista_objetos = []
 
     for d in dados:
@@ -46,7 +46,7 @@ def carregar_entidades_api():
     
     return lista_planetas, lista_personagens, lista_especies, lista_naves, lista_veiculos
 
-def cruzar_dados(lista_origem: list, lista_destino: list, ids: str, destino: str):
+def cruzar_dados(lista_origem, lista_destino, ids, destino):
     mapa_destino = {item.id: item for item in lista_destino}
 
     for item in lista_origem:
@@ -91,7 +91,7 @@ def inicializar_tries(planetas, personagens, especies, naves, veiculos):
     
     return tries
 
-def inserir_trie(lista: list, trie: Trie):
+def inserir_trie(lista, trie):
     for i in lista:
         trie.inserir(i.nome, i)
 
