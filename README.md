@@ -1,5 +1,4 @@
-# Crônicas do Espaço: Planejamento
-Algorítmico de Missões - SWAPI
+# Crônicas do Espaço: Planejamento Algorítmico de Missões - SWAPI
 
 **Descrição breve:** Este projeto é uma aplicação em Python desenvolvida para consumir, estruturar e analisar dados do universo Star Wars. O sistema implementa uma arquitetura modularizada e utiliza estruturas de dados avançadas (Tries) e Algoritmos Gulosos para otimização de missões.
 
