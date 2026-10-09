@@ -1,5 +1,7 @@
 from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo
 from servicos.resultados import exibir_resultados
+from servicos.filtros import filtrar_naves
+
 
 def menu_naves(trie, lista, tipo):
     print("\n---PESQUISA DE NAVES---")
@@ -23,3 +25,7 @@ def menu_naves(trie, lista, tipo):
         resultado, nos = pesquisa_prefixo(trie)
         if resultado is not None:
             exibir_resultados(resultado, nos)
+    elif tipo == "filtro":
+        resultado = filtrar_naves(lista)
+        if resultado is not None:
+            exibir_resultados(resultado)
