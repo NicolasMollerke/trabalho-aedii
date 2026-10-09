@@ -30,18 +30,14 @@ def viagem_gulosa(lista_planetas):
         diametro = int(p.diametro)
 
         if diametro <= quilometragem and d != 0:
-            resultados.append(p)
             quilometragem -= diametro
 
-            print()
-            print(f"Recrutando em: ")
-            p.exibir_detalhes()
-            print(f"Densidade: {d:.2f}")
+            resultados.append(p)
         else:
-            print(f"Sem combustível para chegar a {p.nome}.")
-            break
+            continue
 
-
+    print("\nPlanetas Recrutados:")
+    exibir_resultados(resultados)
     
 
     
