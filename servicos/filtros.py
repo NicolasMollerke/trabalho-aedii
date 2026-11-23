@@ -38,9 +38,9 @@ def filtrar_personagens(lista_personagens):
         elif opcao == "2":
             resultados = [p for p in lista_personagens if p.altura != "unknown" and int(p.altura) <= 150]
         elif opcao == "3":
-            resultados = [p for p in lista_personagens if p.peso != "unknown" and int(p.peso) > 100]
+            resultados = [p for p in lista_personagens if p.peso != "unknown" and float(p.peso.replace(',', '')) > 100]
         elif opcao == "4":
-            resultados = [p for p in lista_personagens if p.peso != "unknown" and int(p.peso) < 50]
+            resultados = [p for p in lista_personagens if p.peso != "unknown" and float(p.peso.replace(',', '')) < 50]
         elif opcao == "0":
             break
         else:
@@ -115,13 +115,13 @@ def filtrar_especies(lista_especies):
         opcao = input("Escolha o filtro: ")
 
         if opcao == "1":
-            resultados = [e for e in lista_especies if e.expectativa_vida != "unknown" and int(e.expectativa_vida) >= 100]
+            resultados = [e for e in lista_especies if e.expectativa_vida != "unknown" and e.expectativa_vida != "indefinite" and int(e.expectativa_vida) >= 100]
         elif opcao == "2":
-            resultados = [e for e in lista_especies if e.expectativa_vida != "unknown" and int(e.expectativa_vida) <= 50]
+            resultados = [e for e in lista_especies if e.expectativa_vida != "unknown" and e.expectativa_vida != "indefinite" and int(e.expectativa_vida) <= 50]
         elif opcao == "3":
-            resultados = [e for e in lista_especies if e.altura_media != "unknown" and int(e.altura_media) >= 180]
+            resultados = [e for e in lista_especies if e.altura_media != "unknown" and e.altura_media != "n/a" and int(e.altura_media) >= 180]
         elif opcao == "4":
-            resultados = [e for e in lista_especies if e.altura_media != "unknown" and int(e.altura_media) <= 150]
+            resultados = [e for e in lista_especies if e.altura_media != "unknown" and e.altura_media != "n/a" and int(e.altura_media) <= 150]
         elif opcao == "0":
             break
         else:
