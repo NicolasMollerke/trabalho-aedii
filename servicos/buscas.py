@@ -8,7 +8,7 @@ def pesquisa_nome(trie):
 
     return resultado, nos
 
-def pesquisa_atributo(lista, mapa_atributos):
+def pesquisa_atributo(hashs, mapa_atributos):
     resultados = []
 
     for chave, atributo in mapa_atributos.items():
@@ -23,18 +23,9 @@ def pesquisa_atributo(lista, mapa_atributos):
         termo = input(f"O que você deseja aprocurar em {mapa_atributos[opcao][0]}: ").lower()
         atributo_escolhido = mapa_atributos[opcao][1]
 
-        for l in lista:
-            atributo = getattr(l, atributo_escolhido)
-        
-            if isinstance(atributo, list):
-                for item in atributo:
-                    nome_item = str(getattr(item, "nome", item)).lower()
-                    if termo in nome_item:
-                        resultados.append(l)
-                        break
-            else:
-                if termo in str(atributo).lower():
-                    resultados.append(l)
+        tabela = hashs[atributo_escolhido]
+
+        resultados = tabela.buscar(termo)
 
         return resultados
     else:

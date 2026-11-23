@@ -7,7 +7,7 @@ def exibir_menu_principal(conjuntos):
         print("BANCO DE DADOS STAR WARS".center(40))
         print("="*40)
         print("[1] Pesquisar por Nome (Uso de Trie)")
-        print("[2] Pesquisar por Atributo (Uso de Lista)")
+        print("[2] Pesquisar por Atributo (Uso de Hash)")
         print("[3] Pesquisar por Prefixo (Uso de Trie)")
         print("[4] Filtros (Uso de Lista)")
         print("[5] Planejamento de Missão (Algoritmo Guloso)")

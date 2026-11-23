@@ -3,7 +3,7 @@ from servicos.filtros import filtrar_personagens
 from servicos.resultados import exibir_resultados
 
 
-def menu_personagens(trie, lista, tipo):
+def menu_personagens(trie, hashs, tipo):
     print("\n---PESQUISA DE PERSONAGENS---")
 
     nos = 0
@@ -20,7 +20,7 @@ def menu_personagens(trie, lista, tipo):
         if resultado is not None:
             exibir_resultados(resultado, nos)
     elif tipo == "atributo":
-        resultado = pesquisa_atributo(lista, mapa_atributos)
+        resultado = pesquisa_atributo(hashs, mapa_atributos)
         if resultado is not None:
             exibir_resultados(resultado, nos)
     elif tipo == "prefixo":
@@ -28,6 +28,6 @@ def menu_personagens(trie, lista, tipo):
         if resultado is not None:
             exibir_resultados(resultado, nos)
     elif tipo == "filtro":
-        resultado = filtrar_personagens(lista)
+        resultado = filtrar_personagens(hashs)
         if resultado is not None:
             exibir_resultados(resultado)

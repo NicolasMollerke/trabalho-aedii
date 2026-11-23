@@ -5,6 +5,7 @@ from models.especie import Especie
 from models.nave import Nave
 from models.veiculo import Veiculo
 from estruturas.trie import Trie
+from estruturas.hash import TabelaHash
 from menus.principal import exibir_menu_principal
 
 
@@ -74,6 +75,9 @@ def estabelecer_relacionamentos(planetas, personagens, especies, naves, veiculos
     cruzar_dados(naves, personagens, "pilotos_ids", "pilotos")
     cruzar_dados(veiculos, personagens, "pilotos_ids", "pilotos")
 
+    cruzar_dados(especies, planetas, "planeta_origem_id", "planeta_origem")
+
+
 def inicializar_tries(planetas, personagens, especies, naves, veiculos):
     tries = {
         "planetas": Trie(),
@@ -91,9 +95,78 @@ def inicializar_tries(planetas, personagens, especies, naves, veiculos):
     
     return tries
 
+def inicializar_hashs(planetas, personagens, especies, naves, veiculos):
+    hashs = {
+        "planetas": {
+            "clima": TabelaHash(len(planetas)),
+            "terreno": TabelaHash(len(planetas))
+        },
+        "personagens": {
+            "planeta_origem": TabelaHash(len(personagens)),
+            "genero": TabelaHash(len(personagens)),
+            "nascimento": TabelaHash(len(personagens)),
+            "especies": TabelaHash(len(personagens))
+        },
+        "especies": {
+            "classificacao": TabelaHash(len(especies)),
+            "planeta_origem": TabelaHash(len(especies)),
+            "idioma": TabelaHash(len(especies))
+        },
+        "naves": {
+            "classe_nave": TabelaHash(len(naves)),
+            "fabricante": TabelaHash(len(naves))
+        },
+        "veiculos": {
+            "classe_veiculo": TabelaHash(len(veiculos)),
+            "modelo": TabelaHash(len(veiculos))
+        }
+    }
+
+    listas = {
+        "planetas": planetas,
+        "personagens": personagens,
+        "especies": especies,
+        "naves": naves,
+        "veiculos": veiculos
+    }
+    
+    for i in hashs.items():
+        for chave, tabela in i[1].items():
+            inserir_hash(listas[i[0]], chave, tabela)
+    
+    return hashs
+
 def inserir_trie(lista: list, trie: Trie):
     for i in lista:
         trie.inserir(i.nome, i)
+
+def inserir_hash(lista: list, campo, hash: TabelaHash):
+    for l in lista:
+        atributo = getattr(l, campo)
+        tratado = tratar_atributo(atributo)
+
+        for t in tratado:
+            hash.inserir(t, l)
+
+def tratar_atributo(atributo):
+    if atributo is None:
+        return []
+
+    if isinstance(atributo, list):
+        chaves = []
+        for item in atributo:
+            chaves.extend(tratar_atributo(item))
+        return chaves
+
+    if hasattr(atributo, "nome"):
+        return tratar_atributo(atributo.nome)
+
+    chaves = []
+    for parte in str(atributo).split(","):
+        parte = parte.strip().lower()
+        if parte:
+            chaves.append(parte)
+    return chaves
 
 
 def main():
@@ -103,12 +176,14 @@ def main():
     
     tries = inicializar_tries(planetas, personagens, especies, naves, veiculos)
 
+    hashs = inicializar_hashs(planetas, personagens, especies, naves, veiculos)
+
     conjuntos = {
-        "planetas": {"trie": tries["planetas"], "lista": planetas},
-        "personagens": {"trie": tries["personagens"], "lista": personagens},
-        "especies": {"trie": tries["especies"], "lista": especies},
-        "naves": {"trie": tries["naves"], "lista": naves},
-        "veiculos": {"trie": tries["veiculos"], "lista": veiculos}
+        "planetas": {"trie": tries["planetas"], "hashs": hashs["planetas"]},
+        "personagens": {"trie": tries["personagens"], "hashs": hashs["personagens"]},
+        "especies": {"trie": tries["especies"], "hashs": hashs["especies"]},
+        "naves": {"trie": tries["naves"], "hashs": hashs["naves"]},
+        "veiculos": {"trie": tries["veiculos"], "hashs": hashs["veiculos"]}
     }
 
     exibir_menu_principal(conjuntos)   
