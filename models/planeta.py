@@ -26,6 +26,9 @@ class Planeta:
 
         self.residentes = []
 
+        self.x = None
+        self.y = None
+
     @classmethod
     def criar(cls, dados: dict):
         url = dados.get("url")
