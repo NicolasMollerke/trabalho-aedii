@@ -6,6 +6,7 @@ from models.nave import Nave
 from models.veiculo import Veiculo
 from estruturas.trie import Trie
 from estruturas.hash import TabelaHash
+from estruturas.arvoreb import ArvoreB
 from menus.principal import exibir_menu_principal
 
 
@@ -98,27 +99,27 @@ def inicializar_tries(planetas, personagens, especies, naves, veiculos):
 def inicializar_hashs(planetas, personagens, especies, naves, veiculos):
     hashs = {
         "planetas": {
-            "clima": TabelaHash(len(planetas)),
-            "terreno": TabelaHash(len(planetas))
+            "clima": TabelaHash(),
+            "terreno": TabelaHash()
         },
         "personagens": {
-            "planeta_origem": TabelaHash(len(personagens)),
-            "genero": TabelaHash(len(personagens)),
-            "nascimento": TabelaHash(len(personagens)),
-            "especies": TabelaHash(len(personagens))
+            "planeta_origem": TabelaHash(),
+            "genero": TabelaHash(),
+            "nascimento": TabelaHash(),
+            "especies": TabelaHash()
         },
         "especies": {
-            "classificacao": TabelaHash(len(especies)),
-            "planeta_origem": TabelaHash(len(especies)),
-            "idioma": TabelaHash(len(especies))
+            "classificacao": TabelaHash(),
+            "planeta_origem": TabelaHash(),
+            "idioma": TabelaHash()
         },
         "naves": {
-            "classe_nave": TabelaHash(len(naves)),
-            "fabricante": TabelaHash(len(naves))
+            "classe_nave": TabelaHash(),
+            "fabricante": TabelaHash()
         },
         "veiculos": {
-            "classe_veiculo": TabelaHash(len(veiculos)),
-            "modelo": TabelaHash(len(veiculos))
+            "classe_veiculo": TabelaHash(),
+            "modelo": TabelaHash()
         }
     }
 
@@ -136,6 +137,48 @@ def inicializar_hashs(planetas, personagens, especies, naves, veiculos):
     
     return hashs
 
+def inicializar_arvores(planetas, personagens, especies, naves, veiculos):
+    arvores = {
+        "planetas": {
+            "diametro": ArvoreB(),
+            "populacao":  ArvoreB()
+        },
+        "personagens": {
+            "altura":  ArvoreB(),
+            "peso":  ArvoreB()
+        },
+        "especies": {
+            "altura_media": ArvoreB(),
+            "expectativa_vida": ArvoreB()
+        },
+        "naves": {
+            "custo_em_creditos": ArvoreB(),
+            "classe_hiperdrive": ArvoreB(),
+            "capacidade_carga": ArvoreB(),
+            "passageiros": ArvoreB(),
+        },
+        "veiculos": {
+            "velocidade_maxima": ArvoreB(),
+            "passageiros": ArvoreB(),
+            "custo_em_creditos": ArvoreB(),
+
+        }
+    }
+
+    listas = {
+        "planetas": planetas,
+        "personagens": personagens,
+        "especies": especies,
+        "naves": naves,
+        "veiculos": veiculos
+    }
+    
+    for i in arvores.items():
+        for chave, tabela in i[1].items():
+            inserir_arvore(listas[i[0]], chave, tabela)
+    
+    return arvores
+
 def inserir_trie(lista: list, trie: Trie):
     for i in lista:
         trie.inserir(i.nome, i)
@@ -147,6 +190,14 @@ def inserir_hash(lista: list, campo, hash: TabelaHash):
 
         for t in tratado:
             hash.inserir(t, l)
+
+def inserir_arvore(lista: list, campo, arvore: ArvoreB):
+    for l in lista:
+        atributo = getattr(l, campo)
+        tratado = converter_numero(atributo)
+
+        if tratado is not None:
+            arvore.inserir(tratado, l)
 
 def tratar_atributo(atributo):
     if atributo is None:
@@ -168,6 +219,22 @@ def tratar_atributo(atributo):
             chaves.append(parte)
     return chaves
 
+def converter_numero(valor):
+    if valor is None:
+        return None
+
+    texto = str(valor).strip().lower()
+
+    if texto in ("", "unknown", "n/a", "none"):
+        return None
+
+    texto = texto.replace(",", "")
+
+    try:
+        return float(texto)
+    except ValueError:
+        return None
+
 
 def main():
     planetas, personagens, especies, naves, veiculos = carregar_entidades_api()
@@ -178,12 +245,14 @@ def main():
 
     hashs = inicializar_hashs(planetas, personagens, especies, naves, veiculos)
 
+    arvores = inicializar_arvores(planetas, personagens, especies, naves, veiculos)
+
     conjuntos = {
-        "planetas": {"trie": tries["planetas"], "hashs": hashs["planetas"]},
-        "personagens": {"trie": tries["personagens"], "hashs": hashs["personagens"]},
-        "especies": {"trie": tries["especies"], "hashs": hashs["especies"]},
-        "naves": {"trie": tries["naves"], "hashs": hashs["naves"]},
-        "veiculos": {"trie": tries["veiculos"], "hashs": hashs["veiculos"]}
+        "planetas": {"trie": tries["planetas"], "hashs": hashs["planetas"], "arvores": arvores["planetas"]},
+        "personagens": {"trie": tries["personagens"], "hashs": hashs["personagens"], "arvores": arvores["personagens"]},
+        "especies": {"trie": tries["especies"], "hashs": hashs["especies"], "arvores": arvores["especies"]},
+        "naves": {"trie": tries["naves"], "hashs": hashs["naves"], "arvores": arvores["naves"]},
+        "veiculos": {"trie": tries["veiculos"], "hashs": hashs["veiculos"], "arvores": arvores["veiculos"]}
     }
 
     exibir_menu_principal(conjuntos)   

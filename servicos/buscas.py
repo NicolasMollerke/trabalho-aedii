@@ -6,7 +6,9 @@ def pesquisa_nome(trie):
                 
     resultado, nos = trie.buscar(nome)
 
-    return resultado, nos
+    texto = f"Nós percorridos: {trie.nos_visitados}"
+
+    return resultado, texto
 
 def pesquisa_atributo(hashs, mapa_atributos):
     resultados = []
@@ -17,19 +19,22 @@ def pesquisa_atributo(hashs, mapa_atributos):
     opcao = input("Digite o atributo (ou '0' para voltar): ").strip()
 
     if opcao == "0": 
-        return 0
+        return None, None
 
     if opcao in mapa_atributos:
-        termo = input(f"O que você deseja aprocurar em {mapa_atributos[opcao][0]}: ").lower()
+        termo = input(f"O que você deseja aprocurar em {mapa_atributos[opcao][0]}: ").strip().lower()
         atributo_escolhido = mapa_atributos[opcao][1]
 
         tabela = hashs[atributo_escolhido]
 
         resultados = tabela.buscar(termo)
 
-        return resultados
+        texto = f"Colisões: {tabela.colisoes} | Fator de Carga: {tabela.fator_carga():.2f}"
+
+        return resultados, texto
     else:
         print("\n[x] Opção inválida.")
+        return None, None
 
 def pesquisa_prefixo(trie):
     prefixo = input("Digite o prefixo (ou '0' para voltar): ").strip()
@@ -37,8 +42,11 @@ def pesquisa_prefixo(trie):
     if prefixo == "0": 
         return 0
     resultado, nos = trie.busca_prefixo(prefixo)
+
+    texto = f"Nós percorridos: {trie.nos_visitados}"
+
     
-    return resultado, nos
+    return resultado, texto
 
 
 

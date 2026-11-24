@@ -19,15 +19,15 @@ def exibir_menu_classes(conjuntos, tipo):
         opcao = input("\nQual classe deseja consultar: ").strip()
         
         if opcao == "1":
-            menu_planetas(conjuntos["planetas"]["trie"], conjuntos["planetas"]["hashs"], tipo)
+            menu_planetas(conjuntos["planetas"]["trie"], conjuntos["planetas"]["hashs"], conjuntos["planetas"]["arvore"], tipo)
         elif opcao == "2":
-            menu_personagens(conjuntos["personagens"]["trie"], conjuntos["personagens"]["hashs"], tipo)
+            menu_personagens(conjuntos["personagens"]["trie"], conjuntos["personagens"]["hashs"], conjuntos["personagens"]["arvores"], tipo)
         elif opcao == "3":
-            menu_especies(conjuntos["especies"]["trie"], conjuntos["especies"]["hashs"], tipo)
+            menu_especies(conjuntos["especies"]["trie"], conjuntos["especies"]["hashs"], conjuntos["especies"]["arvores"], tipo)
         elif opcao == "4":
-            menu_veiculos(conjuntos["veiculos"]["trie"], conjuntos["veiculos"]["hashs"], tipo)
+            menu_veiculos(conjuntos["veiculos"]["trie"], conjuntos["veiculos"]["hashs"], conjuntos["veiculos"]["arvores"], tipo)
         elif opcao == "5":
-            menu_naves(conjuntos["naves"]["trie"], conjuntos["naves"]["hashs"], tipo)
+            menu_naves(conjuntos["naves"]["trie"], conjuntos["naves"]["hashs"], conjuntos["naves"]["arvores"], tipo)
         elif opcao == "0":
             break 
             

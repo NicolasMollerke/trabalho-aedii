@@ -3,10 +3,8 @@ from servicos.resultados import exibir_resultados
 from servicos.filtros import filtrar_naves
 
 
-def menu_naves(trie, hashs, tipo):
+def menu_naves(trie, hashs, arvores, tipo):
     print("\n---PESQUISA DE NAVES---")
-
-    nos = 0
         
     mapa_atributos = {
         "1": ("Classe", "classe_nave"),
@@ -14,18 +12,18 @@ def menu_naves(trie, hashs, tipo):
     }
 
     if tipo == "nome":
-        resultado, nos = pesquisa_nome(trie)
+        resultado, texto = pesquisa_nome(trie)
         if resultado is not None:
-            exibir_resultados(resultado, nos)
+            exibir_resultados(resultado, texto)
     elif tipo == "atributo":
-        resultado = pesquisa_atributo(hashs, mapa_atributos)
+        resultado, texto = pesquisa_atributo(hashs, mapa_atributos)
         if resultado is not None:
-            exibir_resultados(resultado, nos)
+            exibir_resultados(resultado, texto)
     elif tipo == "prefixo":
-        resultado, nos = pesquisa_prefixo(trie)
+        resultado, texto = pesquisa_prefixo(trie)
         if resultado is not None:
-            exibir_resultados(resultado, nos)
+            exibir_resultados(resultado, texto)
     elif tipo == "filtro":
-        resultado = filtrar_naves(hashs)
+        resultado, texto = filtrar_naves(arvores)
         if resultado is not None:
-            exibir_resultados(resultado)
+            exibir_resultados(resultado, texto)

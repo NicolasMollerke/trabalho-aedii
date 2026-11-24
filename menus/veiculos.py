@@ -2,7 +2,7 @@ from servicos.buscas import pesquisa_prefixo, pesquisa_nome, pesquisa_atributo
 from servicos.resultados import exibir_resultados
 from servicos.filtros import filtrar_veiculos
 
-def menu_veiculos(trie, hashs, tipo):
+def menu_veiculos(trie, hashs, arvores, tipo):
     print("\n---PESQUISA DE VEÍCULOS---")
 
     nos = 0
@@ -13,18 +13,18 @@ def menu_veiculos(trie, hashs, tipo):
     }
 
     if tipo == "nome":
-        resultado, nos = pesquisa_nome(trie)
+        resultado, texto = pesquisa_nome(trie)
         if resultado is not None:
-            exibir_resultados(resultado, nos)
+            exibir_resultados(resultado, texto)
     elif tipo == "atributo":
-        resultado = pesquisa_atributo(hashs, mapa_atributos)
+        resultado, texto = pesquisa_atributo(hashs, mapa_atributos)
         if resultado is not None:
-            exibir_resultados(resultado, nos)
+            exibir_resultados(resultado, texto)
     elif tipo == "prefixo":
-        resultado, nos = pesquisa_prefixo(trie)
+        resultado, texto = pesquisa_prefixo(trie)
         if resultado is not None:
-            exibir_resultados(resultado, nos)
+            exibir_resultados(resultado, texto)
     elif tipo == "filtro":
-        resultado = filtrar_veiculos(hashs)
+        resultado, texto = filtrar_veiculos(arvores)
         if resultado is not None:
-            exibir_resultados(resultado)
+            exibir_resultados(resultado, texto)

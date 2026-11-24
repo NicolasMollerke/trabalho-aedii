@@ -3,10 +3,8 @@ from servicos.filtros import filtrar_personagens
 from servicos.resultados import exibir_resultados
 
 
-def menu_personagens(trie, hashs, tipo):
+def menu_personagens(trie, hashs, arvores, tipo):
     print("\n---PESQUISA DE PERSONAGENS---")
-
-    nos = 0
 
     mapa_atributos = {
         "1": ("Planeta de Origem", "planeta_origem"),
@@ -16,18 +14,18 @@ def menu_personagens(trie, hashs, tipo):
     }
 
     if tipo == "nome":
-        resultado, nos = pesquisa_nome(trie)
+        resultado, texto = pesquisa_nome(trie)
         if resultado is not None:
-            exibir_resultados(resultado, nos)
+            exibir_resultados(resultado, texto)
     elif tipo == "atributo":
-        resultado = pesquisa_atributo(hashs, mapa_atributos)
+        resultado, texto = pesquisa_atributo(hashs, mapa_atributos)
         if resultado is not None:
-            exibir_resultados(resultado, nos)
+            exibir_resultados(resultado, texto)
     elif tipo == "prefixo":
-        resultado, nos = pesquisa_prefixo(trie)
+        resultado, texto = pesquisa_prefixo(trie)
         if resultado is not None:
-            exibir_resultados(resultado, nos)
+            exibir_resultados(resultado, texto)
     elif tipo == "filtro":
-        resultado = filtrar_personagens(hashs)
+        resultado, texto = filtrar_personagens(arvores)
         if resultado is not None:
-            exibir_resultados(resultado)
+            exibir_resultados(resultado, texto)
