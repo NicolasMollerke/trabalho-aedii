@@ -8,6 +8,7 @@ from estruturas.trie import Trie
 from estruturas.hash import TabelaHash
 from estruturas.arvoreb import ArvoreB
 from menus.principal import exibir_menu_principal
+from servicos.galaxia import montar_grafo
 
 
 def fetch_data(endpoint) -> list:
@@ -174,8 +175,8 @@ def inicializar_arvores(planetas, personagens, especies, naves, veiculos):
     }
     
     for i in arvores.items():
-        for chave, tabela in i[1].items():
-            inserir_arvore(listas[i[0]], chave, tabela)
+        for chave, arvore in i[1].items():
+            inserir_arvore(listas[i[0]], chave, arvore)
     
     return arvores
 
@@ -238,6 +239,9 @@ def converter_numero(valor):
 
 def main():
     planetas, personagens, especies, naves, veiculos = carregar_entidades_api()
+
+    grafo_planetas = montar_grafo(planetas)
+    print(len(grafo_planetas.vertices))
     
     estabelecer_relacionamentos(planetas, personagens, especies, naves, veiculos)
     
@@ -248,7 +252,7 @@ def main():
     arvores = inicializar_arvores(planetas, personagens, especies, naves, veiculos)
 
     conjuntos = {
-        "planetas": {"trie": tries["planetas"], "hashs": hashs["planetas"], "arvores": arvores["planetas"]},
+        "planetas": {"trie": tries["planetas"], "hashs": hashs["planetas"], "arvores": arvores["planetas"], "grafo": grafo_planetas},
         "personagens": {"trie": tries["personagens"], "hashs": hashs["personagens"], "arvores": arvores["personagens"]},
         "especies": {"trie": tries["especies"], "hashs": hashs["especies"], "arvores": arvores["especies"]},
         "naves": {"trie": tries["naves"], "hashs": hashs["naves"], "arvores": arvores["naves"]},
