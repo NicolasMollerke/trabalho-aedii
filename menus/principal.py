@@ -1,4 +1,5 @@
 from menus.classes import exibir_menu_classes
+from menus.grafos import menu_grafos
 from servicos.missaoGulosa import viagem_gulosa
 
 def exibir_menu_principal(conjuntos):
@@ -9,6 +10,7 @@ def exibir_menu_principal(conjuntos):
         print("[3] Pesquisar por Prefixo (Uso de Trie)")
         print("[4] Filtros (Uso de ArvoreB)")
         print("[5] Planejamento de Missão (Algoritmo Guloso)")
+        print("[6] Funções de Grafos")
         print("[0] Sair do Sistema")
         print("="*40)
         
@@ -24,6 +26,8 @@ def exibir_menu_principal(conjuntos):
             exibir_menu_classes(conjuntos, tipo="filtro")
         elif opcao == "5":
             viagem_gulosa(conjuntos["planetas"]["lista"])
+        elif opcao == "6":
+            menu_grafos(conjuntos["grafos"])
         elif opcao == "0":
             print("\nEncerrando o sistema. Que a Força esteja com você!")
             break

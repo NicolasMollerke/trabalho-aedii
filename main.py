@@ -9,6 +9,7 @@ from estruturas.hash import TabelaHash
 from estruturas.arvoreb import ArvoreB
 from menus.principal import exibir_menu_principal
 from servicos.galaxia import montar_grafo
+from servicos.missoes import montar_missao
 
 
 def fetch_data(endpoint) -> list:
@@ -241,7 +242,9 @@ def main():
     planetas, personagens, especies, naves, veiculos = carregar_entidades_api()
 
     grafo_planetas = montar_grafo(planetas)
-    print(len(grafo_planetas.vertices))
+
+    missao = montar_missao()
+
     
     estabelecer_relacionamentos(planetas, personagens, especies, naves, veiculos)
     
@@ -252,14 +255,17 @@ def main():
     arvores = inicializar_arvores(planetas, personagens, especies, naves, veiculos)
 
     conjuntos = {
-        "planetas": {"trie": tries["planetas"], "hashs": hashs["planetas"], "arvores": arvores["planetas"], "grafo": grafo_planetas},
+        "planetas": {"trie": tries["planetas"], "hashs": hashs["planetas"], "arvores": arvores["planetas"]},
         "personagens": {"trie": tries["personagens"], "hashs": hashs["personagens"], "arvores": arvores["personagens"]},
         "especies": {"trie": tries["especies"], "hashs": hashs["especies"], "arvores": arvores["especies"]},
         "naves": {"trie": tries["naves"], "hashs": hashs["naves"], "arvores": arvores["naves"]},
-        "veiculos": {"trie": tries["veiculos"], "hashs": hashs["veiculos"], "arvores": arvores["veiculos"]}
+        "veiculos": {"trie": tries["veiculos"], "hashs": hashs["veiculos"], "arvores": arvores["veiculos"]},
+        "grafos": {"planetas": grafo_planetas, "missao": missao}
     }
 
     exibir_menu_principal(conjuntos)   
+
+    print(missao.kahn())
 
 
 if __name__ == "__main__":
